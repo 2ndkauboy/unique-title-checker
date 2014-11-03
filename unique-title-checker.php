@@ -50,7 +50,7 @@ class Unique_Title_Checker {
 	 *
 	 * @type  string
 	 */
-	public $ajax_nonce = 'unique_title_check_nonce';
+	public $ajax_nonce = '';
 
 	/**
 	 * Access this plugin’s working instance
