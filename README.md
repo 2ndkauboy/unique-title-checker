@@ -13,6 +13,8 @@ The plugin provides a filter `unique_title_checker_arguments`, which enables you
 
 This is plugin is an enhancement of the [Duplicate Title Checker](https://wordpress.org/plugins/duplicate-title-checker/) by [ketanajani](https://profiles.wordpress.org/ketanajani/) which only supports posts but not pages or custom post types.
 
+## Frequently Asked Questions ##
+
 ### Why should I use this plugin? ###
 Some SEO experts say, that you should not have two pages with the same title. If you website wants to avoid duplicate titles, this plugin can help you on that task, as it checks the unqiueness, before you save or publish a post.
 
