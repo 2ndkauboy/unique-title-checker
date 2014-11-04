@@ -35,10 +35,10 @@ Absolutely! The plugin provides a filter called `unique_title_checker_arguments`
 
 ## Screenshots ##
 ### 1. A post with a unique title ###
-![A post with a unique title](http://s.wordpress.org/extend/plugins/unique-title-checker/assets/screenshot-1.png)
+![A post with a unique title](http://ps.w.org/unique-title-checker/assets/screenshot-1.png)
 
 ### 2. A new post with a duplicate title ###
-![A new post with a duplicate title](http://s.wordpress.org/extend/plugins/unique-title-checker/assets/screenshot-2.png)
+![A new post with a duplicate title](http://ps.w.org/unique-title-checker/assets/screenshot-2.png)
 
 
 ## Changelog ##
