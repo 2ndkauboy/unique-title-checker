@@ -2,7 +2,7 @@
 Contributors: Kau-Boy
 Tags: title, seo, duplicate title, unique title
 Tested up to: 4.0
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
 
@@ -38,6 +38,10 @@ Absolutely! The plugin provides a filter called `unique_title_checker_arguments`
 2. A new post with a duplicate title
 
 == Changelog ==
+= 1.1 =
+* Show no warning on empty titles
+* Time invested for this release: 10min
+
 = 1.0 =
 * First stable version to be deployed in the official WordPress Plugin Repository
 * Writing a readme file
