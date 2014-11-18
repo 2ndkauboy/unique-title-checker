@@ -4,7 +4,7 @@
  * Plugin Name: Unique Title Checker
  * Plugin URI: https://github.com/2ndkauboy/unique-title-checker
  * Description: Checks if the title of a post, page or custom post type is unique and warn the editor if not
- * Version: 1.1
+ * Version: 1.2
  * Author: Bernhard Kau
  * Author URI: http://kau-boys.de
  * License: GPLv3
@@ -55,6 +55,13 @@ class Unique_Title_Checker {
 	public $ajax_nonce = '';
 
 	/**
+	 * The post title to be checked
+	 *
+	 * @type  string
+	 */
+	public $post_title = '';
+
+	/**
 	 * Access this plugin’s working instance
 	 *
 	 * @wp-hook plugins_loaded
@@ -83,7 +90,10 @@ class Unique_Title_Checker {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		// add the AJAX callback function
-		add_action( 'wp_ajax_unique_title_check', array( $this, 'check_uniqueness' ) );
+		add_action( 'wp_ajax_unique_title_check', array( $this, 'unique_title_check' ) );
+
+		// check uniqueness, when post is edited
+		add_filter( 'admin_notices', array( $this, 'uniqueness_admin_notice' ) );
 
 		// generate the AJAX nonce
 		$this->ajax_nonce = wp_create_nonce( $this->nonce_action );
@@ -147,23 +157,75 @@ class Unique_Title_Checker {
 	 *
 	 * @return  void
 	 */
-	public function check_uniqueness() {
+	public function unique_title_check() {
 		// verify the ajax request
 		check_ajax_referer( $this->nonce_action, 'ajax_nonce' );
+
+		$response = $this->check_uniqueness( $_REQUEST );
+
+		echo json_encode( $response );
+
+		die();
+	}
+
+	/**
+	 * Show an initial warning, if the title of a saved post is not unique
+	 *
+	 * @wp-hook admin_notices
+	 */
+	public function uniqueness_admin_notice() {
+		global $post, $pagenow;
+
+		// don't show an initial warning on a new post
+		if ( 'post.php' != $pagenow ) {
+			return;
+		}
+
+		// show no warning, when the title is empty
+		if ( empty( $post->post_title ) ) {
+			return;
+		}
+
+		// build the necessary args for the initial uniqueness check
+		$args = array(
+			'post__not_in' => $post->ID,
+			'post_type'    => $post->post_type,
+			'post_title'   => $post->post_title,
+		);
+
+		$response = $this->check_uniqueness( $args );
+
+		// don't show a message on init, if title is unique
+		if ( 'error' != $response['status'] ) {
+			return;
+		}
+
+		echo '<div id="unique-title-message" class="' . $response['status'] . '"><p>' . $response['message'] . '</p></div>';
+	}
+
+	/**
+	 * @param array|string $args The WP_QUERY arguments array or query string
+	 *
+	 * @return array The status and message for the response
+	 */
+	public function check_uniqueness( $args ) {
 
 		// use the posts_where hook to add thr filter for the post_title, as it is not available through WP_Query args
 		add_filter( 'posts_where', array( $this, 'post_title_where' ), 10, 1 );
 
 		// providing a filter to overwrite the search arguments
-		$args = apply_filters( 'unique_title_checker_arguments', $_REQUEST );
+		$args = apply_filters( 'unique_title_checker_arguments', $args );
 
 		if ( $post_type_object = get_post_type_object( $args['post_type'] ) ) {
 			$post_type_singular_name = $post_type_object->labels->singular_name;
-			$post_type_name = $post_type_object->labels->name;
+			$post_type_name          = $post_type_object->labels->name;
 		} else {
 			$post_type_singular_name = __( 'post', 'unique-title-checker' );
 			$post_type_name = __( 'posts', 'unique-title-checker' );
 		}
+
+		// set post title to be checked
+		$this->post_title = $args['post_title'];
 
 		$query = new WP_Query( $args );
 		$posts_count = $query->post_count;
@@ -180,9 +242,10 @@ class Unique_Title_Checker {
 			);
 		}
 
-		echo json_encode( $response );
+		// remove filter for post_title
+		remove_filter( 'posts_where', array( $this, 'post_title_where' ), 10 );
 
-		die();
+		return $response;
 	}
 
 	/**
@@ -199,7 +262,7 @@ class Unique_Title_Checker {
 	public function post_title_where( $where ) {
 		global $wpdb;
 
-		return $where . " AND $wpdb->posts.post_title = '" . esc_sql( $_REQUEST['post_title'] ) . "'";
+		return $where . " AND $wpdb->posts.post_title = '" . esc_sql( $this->post_title ) . "'";
 	}
 
 } // end class
