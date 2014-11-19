@@ -2,7 +2,7 @@
 Contributors: Kau-Boy
 Tags: title, seo, duplicate title, unique title
 Tested up to: 4.0
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
 
@@ -38,6 +38,10 @@ Absolutely! The plugin provides a filter called `unique_title_checker_arguments`
 2. A new post with a duplicate title
 
 == Changelog ==
+= 1.2.1 =
+* Fixing query arguments for admin notices
+* Time invested for this release: 10min
+
 = 1.2 =
 * Show warning when editing a post that has a duplicate title
 * Time invested for this release: 30min
