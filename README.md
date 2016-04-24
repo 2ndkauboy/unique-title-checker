@@ -1,8 +1,8 @@
 # Unique Title Checker #
 **Contributors:** Kau-Boy  
 **Tags:** title, seo, duplicate title, unique title  
-**Tested up to:** 4.1  
-**Stable tag:** 1.2.2
+**Tested up to:** 4.5
+**Stable tag:** 1.2.3
 **License:** GPLv3  
 **License URI:** http://www.gnu.org/licenses/gpl-3.0  
 
@@ -42,6 +42,10 @@ Absolutely! The plugin provides a filter called `unique_title_checker_arguments`
 
 
 ## Changelog ##
+### 1.2.3 ###
+* Apply WordPress Coding Standards
+* Time invested for this release: 20min
+
 ### 1.2.2 ###
 * Fixing German translation and tag as tested up to 4.5
 * Time invested for this release: 10min
