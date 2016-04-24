@@ -4,7 +4,7 @@
  * Plugin Name: Unique Title Checker
  * Plugin URI: https://github.com/2ndkauboy/unique-title-checker
  * Description: Checks if the title of a post, page or custom post type is unique and warn the editor if not
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: Bernhard Kau
  * Author URI: http://kau-boys.de
  * License: GPLv3
@@ -237,7 +237,7 @@ class Unique_Title_Checker {
 			);
 		} else {
 			$response = array(
-				'message' => sprintf( _n( 'There is another %2$s with the same title!', 'There are %1$d other %3$s with the same title!', $posts_count, 'unique-title-checker' ), $posts_count, $post_type_singular_name, $post_type_name ),
+				'message' => sprintf( _n( 'There is 1 %2$s with the same title!', 'There are %1$d other %3$s with the same title!', $posts_count, 'unique-title-checker' ), $posts_count, $post_type_singular_name, $post_type_name ),
 				'status'  => 'error',
 			);
 		}
