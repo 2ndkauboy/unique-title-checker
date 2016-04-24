@@ -7,6 +7,7 @@
  * Version: 1.2.2
  * Author: Bernhard Kau
  * Author URI: http://kau-boys.de
+ * Textdomain: unique-title-checker
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0
  */
