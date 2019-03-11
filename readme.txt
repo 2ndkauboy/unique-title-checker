@@ -1,14 +1,16 @@
 === Unique Title Checker ===
 Contributors: Kau-Boy
 Tags: title, seo, duplicate title, unique title
-Tested up to: 4.5
-Stable tag: 1.2.3
+Tested up to: 5.1
+Stable tag: 1.3.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
 
 A simple plugin that checks the title of any post, page or custom post type to ensure it is unique and does not hurt SEO.
 
 == Description ==
+**Works only with WordPress 4.9 or Classic Editor installed:** As this plugin shows a message above the title field and this message area is not present in the block editor (Gutenberg) it currently only works with WordPress 4.9 or with the Classic Editor used in WordPress 5.0 and larger.
+
 The plugin provides a filter `unique_title_checker_arguments`, which enables you to modify the `WP_Query` arguments used to find duplicate titles. You may use it so search in more than only current post type for a duplicate title.
 
 This is plugin is an enhancement of the [Duplicate Title Checker](https://wordpress.org/plugins/duplicate-title-checker/) by [ketanajani](https://profiles.wordpress.org/ketanajani/) which only supports posts but not pages or custom post types.
@@ -38,6 +40,10 @@ Absolutely! The plugin provides a filter called `unique_title_checker_arguments`
 2. A new post with a duplicate title
 
 == Changelog ==
+= 1.3.0 =
+* Adding a filter `unique_title_checker_only_unique_error` to hide the success message, if a title is unique
+* Time invested for this release: 30min
+
 = 1.2.3 =
 * Apply WordPress Coding Standards
 * Time invested for this release: 20min

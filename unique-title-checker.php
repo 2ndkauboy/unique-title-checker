@@ -10,7 +10,7 @@
  * Plugin Name: Unique Title Checker
  * Plugin URI: https://github.com/2ndkauboy/unique-title-checker
  * Description: Checks if the title of a post, page or custom post type is unique and warn the editor if not
- * Version: 1.2.3
+ * Version: 1.3.0
  * Author: Bernhard Kau
  * Author URI: http://kau-boys.de
  * Text Domain: unique-title-checker
@@ -157,8 +157,13 @@ class Unique_Title_Checker {
 		// Enqueue the script.
 		wp_enqueue_script( 'unique_title_checker', plugins_url( 'js/unique-title-checker.js', __FILE__ ), 'jquery', false, true );
 
+		$plugin_options = array(
+			'nonce'             => $this->ajax_nonce,
+			'only_unique_error' => apply_filters( 'unique_title_checker_only_unique_error', false ),
+		);
+
 		// Add the nonce to the form.
-		wp_localize_script( 'unique_title_checker', 'unique_title_checker', array( 'nonce' => $this->ajax_nonce ) );
+		wp_localize_script( 'unique_title_checker', 'unique_title_checker', $plugin_options );
 		wp_enqueue_script( 'unique_title_checker' );
 	}
 
@@ -246,13 +251,13 @@ class Unique_Title_Checker {
 			$post_type_name          = $post_type_object->labels->name;
 		} else {
 			$post_type_singular_name = __( 'post', 'unique-title-checker' );
-			$post_type_name = __( 'posts', 'unique-title-checker' );
+			$post_type_name          = __( 'posts', 'unique-title-checker' );
 		}
 
 		// Set post title to be checked.
 		$this->post_title = $args['post_title'];
 
-		$query = new WP_Query( $args );
+		$query       = new WP_Query( $args );
 		$posts_count = $query->post_count;
 
 		if ( empty( $posts_count ) ) {
@@ -278,7 +283,7 @@ class Unique_Title_Checker {
 	 *
 	 * @wp-hook wp_ajax_(action)
 	 *
-	 * @global wpdb $wpdb The data base object
+	 * @global wpdb  $wpdb  The data base object
 	 *
 	 * @param string $where The WHERE clause.
 	 *

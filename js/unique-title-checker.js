@@ -5,25 +5,28 @@ jQuery( document ).ready( function ( $ ) {
 		var title = $( this ).val();
 
 		// show no warning on empty titles
-		if ( '' == title ) {
+		if ( '' === title ) {
 			return;
 		}
 
 		var request_data = {
-			action: 'unique_title_check',
-			ajax_nonce: unique_title_checker.nonce,
+			action      : 'unique_title_check',
+			ajax_nonce  : unique_title_checker.nonce,
 			post__not_in: [ $( '#post_ID' ).val() ],
-			post_type: $( '#post_type' ).val(),
-			post_title: title
+			post_type   : $( '#post_type' ).val(),
+			post_title  : title
 		};
 
 		$.ajax( {
-			url: ajaxurl,
-			data: request_data,
+			url     : ajaxurl,
+			data    : request_data,
 			dataType: 'json'
 		} ).done( function ( data ) {
 			$( '#unique-title-message' ).remove();
-			$( '#post' ).before( '<div id="unique-title-message" class="' + data.status + '"><p>' + data.message + '</p></div>' );
+
+			if ( 'error' === data.status || !unique_title_checker.only_unique_error ) {
+				$( '#post' ).before( '<div id="unique-title-message" class="' + data.status + '"><p>' + data.message + '</p></div>' );
+			}
 		} );
 
 	} );
