@@ -2,7 +2,7 @@
 **Contributors:** Kau-Boy  
 **Tags:** title, seo, duplicate title, unique title  
 **Tested up to:** 5.1  
-**Stable tag:** 1.4.1  
+**Stable tag:** 1.5.0  
 **License:** GPLv3  
 **License URI:** http://www.gnu.org/licenses/gpl-3.0  
 
@@ -45,6 +45,10 @@ Yes, you can simply use the filter `unique_title_checker_only_unique_error` with
 
 
 ## Changelog ##
+
+### 1.5.0 ###
+* Improve the translation for langs having "multiple singulars" (e.g. RU)
+* Time invested for this release: 45min
 
 ### 1.4.1 ###
 * Fix jQuery noConflict issue with Gutenberg block editor
