@@ -79,7 +79,9 @@ class Unique_Title_Checker {
 	 */
 	public static function get_instance() {
 
-		null === self::$instance and self::$instance = new self;
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
 
 		return self::$instance;
 	}
@@ -156,9 +158,9 @@ class Unique_Title_Checker {
 
 		// Enqueue the script.
 		if ( function_exists( 'block_version' ) ) {
-			wp_enqueue_script( 'unique_title_checker', plugins_url( 'js/unique-title-checker-block-editor.js', __FILE__ ), array( 'jquery', 'wp-data', 'wp-notices' ), false, true );
+			wp_enqueue_script( 'unique_title_checker', plugins_url( 'js/unique-title-checker-block-editor.js', __FILE__ ), array( 'jquery', 'wp-data', 'wp-notices' ), '1.4.1', true );
 		} else {
-			wp_enqueue_script( 'unique_title_checker', plugins_url( 'js/unique-title-checker.js', __FILE__ ), array( 'jquery' ), false, true );
+			wp_enqueue_script( 'unique_title_checker', plugins_url( 'js/unique-title-checker.js', __FILE__ ), array( 'jquery' ), '1.4.1', true );
 		}
 
 		$plugin_options = array(
@@ -250,12 +252,13 @@ class Unique_Title_Checker {
 		// Providing a filter to overwrite the search arguments.
 		$args = apply_filters( 'unique_title_checker_arguments', $args );
 
-		if ( $post_type_object = get_post_type_object( $args['post_type'] ) ) {
+		$post_type_object = get_post_type_object( $args['post_type'] );
+		if ( $post_type_object ) {
 			$post_type_singular_name = $post_type_object->labels->singular_name;
 			$post_type_name          = $post_type_object->labels->name;
 		} else {
-			$post_type_singular_name = __( 'post', 'unique-title-checker' );
-			$post_type_name          = __( 'posts', 'unique-title-checker' );
+			$post_type_singular_name = esc_html__( 'post', 'unique-title-checker' );
+			$post_type_name          = esc_html__( 'posts', 'unique-title-checker' );
 		}
 
 		// Set post title to be checked.
@@ -266,12 +269,19 @@ class Unique_Title_Checker {
 
 		if ( empty( $posts_count ) ) {
 			$response = array(
-				'message' => __( 'The chosen title is unique.', 'unique-title-checker' ),
+				'message' => esc_html__( 'The chosen title is unique.', 'unique-title-checker' ),
 				'status'  => 'updated',
 			);
 		} else {
+			if ( 1 === $posts_count ) {
+				// Translators: %2$s: post type singular name.
+				$message = esc_html( sprintf( __( 'There is one %1$s with the same title!', 'unique-title-checker' ), $post_type_singular_name ) );
+			} else {
+				// Translators: %1$d: posts count, %2$s: post type singular name, %3$s: post type plural name.
+				$message = esc_html( sprintf( _n( 'There is %1$d %2$s with the same title!', 'There are %1$d other %3$s with the same title!', $posts_count, 'unique-title-checker' ), $posts_count, $post_type_singular_name, $post_type_name ) ); // phpcs:ignore WordPress.WP.I18n.MismatchedPlaceholders
+			}
 			$response = array(
-				'message' => sprintf( _n( 'There is 1 %2$s with the same title!', 'There are %1$d other %3$s with the same title!', $posts_count, 'unique-title-checker' ), $posts_count, $post_type_singular_name, $post_type_name ),
+				'message' => $message,
 				'status'  => 'error',
 			);
 		}
