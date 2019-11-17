@@ -17,7 +17,7 @@ wp.domReady( function() {
 			post_title  : title
 		};
 
-		$.ajax( {
+		jQuery.ajax( {
 			url     : ajaxurl,
 			data    : request_data,
 			dataType: 'json'

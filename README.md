@@ -2,9 +2,9 @@
 **Contributors:** Kau-Boy  
 **Tags:** title, seo, duplicate title, unique title  
 **Tested up to:** 5.1  
-**Stable tag:** 1.4.0  
+**Stable tag:** 1.4.1  
 **License:** GPLv3  
-**License URI:** http://www.gnu.org/licenses/gpl-3.0
+**License URI:** http://www.gnu.org/licenses/gpl-3.0  
 
 A simple plugin that checks the title of any post, page or custom post type to ensure it is unique and does not hurt SEO.
 
@@ -45,6 +45,10 @@ Yes, you can simply use the filter `unique_title_checker_only_unique_error` with
 
 
 ## Changelog ##
+
+### 1.4.1 ###
+* Fix jQuery noConflict issue with Gutenberg block editor
+* Time invested for this release: 15min
 
 ### 1.4.0 ###
 * Add support for Gutenberg block editor

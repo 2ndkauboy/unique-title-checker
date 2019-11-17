@@ -2,7 +2,7 @@
 Contributors: Kau-Boy
 Tags: title, seo, duplicate title, unique title
 Tested up to: 5.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
 
@@ -41,6 +41,11 @@ Yes, you can simply use the filter `unique_title_checker_only_unique_error` with
 2. A new post with a duplicate title
 
 == Changelog ==
+
+= 1.4.1 =
+* Fix jQuery noConflict issue with Gutenberg block editor
+* Time invested for this release: 15min
+
 = 1.4.0 =
 * Add support for Gutenberg block editor
 * Time invested for this release: 90min

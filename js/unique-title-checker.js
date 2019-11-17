@@ -1,8 +1,8 @@
-jQuery( document ).ready( function ( $ ) {
+jQuery( document ).ready( function () {
 
-	$( '#title' ).blur( function () {
+	jQuery( '#title' ).blur( function () {
 
-		var title = $( this ).val();
+		var title = jQuery( this ).val();
 
 		// show no warning on empty titles
 		if ( '' === title ) {
@@ -12,20 +12,20 @@ jQuery( document ).ready( function ( $ ) {
 		var request_data = {
 			action      : 'unique_title_check',
 			ajax_nonce  : unique_title_checker.nonce,
-			post__not_in: [ $( '#post_ID' ).val() ],
-			post_type   : $( '#post_type' ).val(),
+			post__not_in: [ jQuery( '#post_ID' ).val() ],
+			post_type   : jQuery( '#post_type' ).val(),
 			post_title  : title
 		};
 
-		$.ajax( {
+		jQuery.ajax( {
 			url     : ajaxurl,
 			data    : request_data,
 			dataType: 'json'
 		} ).done( function ( data ) {
-			$( '#unique-title-message' ).remove();
+			jQuery( '#unique-title-message' ).remove();
 
 			if ( 'error' === data.status || !unique_title_checker.only_unique_error ) {
-				$( '#post' ).before( '<div id="unique-title-message" class="' + data.status + '"><p>' + data.message + '</p></div>' );
+				jQuery( '#post' ).before( '<div id="unique-title-message" class="' + data.status + '"><p>' + data.message + '</p></div>' );
 			}
 		} );
 
