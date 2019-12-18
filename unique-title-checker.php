@@ -157,7 +157,7 @@ class Unique_Title_Checker {
 		}
 
 		// Enqueue the script.
-		if ( function_exists( 'block_version' ) ) {
+		if ( function_exists( 'block_version' ) && get_option( 'classic-editor-replace' ) != 'classic' ) {
 			wp_enqueue_script( 'unique_title_checker', plugins_url( 'js/unique-title-checker-block-editor.js', __FILE__ ), array( 'jquery', 'wp-data', 'wp-notices' ), '1.4.1', true );
 		} else {
 			wp_enqueue_script( 'unique_title_checker', plugins_url( 'js/unique-title-checker.js', __FILE__ ), array( 'jquery' ), '1.4.1', true );
