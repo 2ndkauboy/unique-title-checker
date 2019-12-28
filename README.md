@@ -41,16 +41,16 @@ Yes, you can simply use the filter `unique_title_checker_only_unique_error` with
 
 ## Screenshots ##
 ### 1. A post with a unique title using the Classic Editor
-![A post with a unique title using the Classic Editor](https://raw.githubusercontent.com/2ndkauboy/unique-title-checker/master/assets/screenshot-1.png)
+![A post with a unique title using the Classic Editor](https://raw.githubusercontent.com/2ndkauboy/unique-title-checker/master/.wordpress-org/screenshot-1.png)
 
-### 2. A new post with a duplicate title ###
-![A new post with a duplicate title using the Classic Editor](https://raw.githubusercontent.com/2ndkauboy/unique-title-checker/master/assets/screenshot-2.png)
+### 2. A new post with a duplicate title using the Classic Editor ###
+![A new post with a duplicate title using the Classic Editor](https://raw.githubusercontent.com/2ndkauboy/unique-title-checker/master/.wordpress-org/screenshot-2.png)
 
 ### 3. A post with a unique title using the Block Editor
-![A post with a unique title using the Block Editor](https://raw.githubusercontent.com/2ndkauboy/unique-title-checker/master/assets/screenshot-3.png)
+![A post with a unique title using the Block Editor](https://raw.githubusercontent.com/2ndkauboy/unique-title-checker/master/.wordpress-org/screenshot-3.png)
 
 ### 4. A new post with a duplicate title using the Block Editor
-![A new post with a duplicate title using the Block Editor](https://raw.githubusercontent.com/2ndkauboy/unique-title-checker/master/assets/screenshot-4.png)
+![A new post with a duplicate title using the Block Editor](https://raw.githubusercontent.com/2ndkauboy/unique-title-checker/master/.wordpress-org/screenshot-4.png)
 
 ## Changelog ##
 
