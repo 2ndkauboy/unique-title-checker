@@ -9,7 +9,8 @@ License URI: http://www.gnu.org/licenses/gpl-3.0
 A simple plugin that checks the title of any post, page or custom post type to ensure it is unique and does not hurt SEO.
 
 == Description ==
-The plugin provides a filter `unique_title_checker_arguments`, which enables you to modify the `WP_Query` arguments used to find duplicate titles. You may use it so search in more than only current post type for a duplicate title.
+
+This plugin checks the title of a new post/page or any other post type for uniqueness. The plugin provides a filter `unique_title_checker_arguments`, which enables you to modify the `WP_Query` arguments used to find duplicate titles. You may use it so search in more than only current post type for a duplicate title.
 
 This is plugin is an enhancement of the [Duplicate Title Checker](https://wordpress.org/plugins/duplicate-title-checker/) by [ketanajani](https://profiles.wordpress.org/ketanajani/) which only supports posts but not pages or custom post types.
 
@@ -31,18 +32,22 @@ No! You can always save the post. There might be good reasons for you, to have d
 Every time you leave the title input field, the plugin will check the uniqueness of the new title, so you know if it will be unique, before you save the post.
 
 = Can I customize the defaults for the check? =
-Absolutely! The plugin provides a filter called `unique_title_checker_arguments`. With this filter, you can alter the arguments used for the `WP_Query`,  the plugin uses to get posts with duplicate titles.
+Absolutely! The plugin provides a filter called `unique_title_checker_arguments`. With this filter, you can alter the arguments used for the `WP_Query`, the plugin uses to get posts with duplicate titles.
+
+= Will the plugin check the uniqueness across different post types? =
+No, it only checks the uniqueness per post type. But you can customize the `WP_Query` with the filter mentioned in the previous question. For a check across all post types, you can also [use this plugin implementing the filter for such a check](https://gist.github.com/2ndkauboy/140116e47f2d6c8ae25b002592ac45eb).
 
 = Can I only show messages, if a title is not unique? =
 Yes, you can simply use the filter `unique_title_checker_only_unique_error` with `__return_true` to deactivate it ([or use this plugin which implements the filter](https://gist.github.com/140116e47f2d6c8ae25b002592ac45eb)).
 
 == Screenshots ==
-1. A post with a unique title
-2. A new post with a duplicate title
+
+1. A post with a unique title using the Classic Editor
+2. A new post with a duplicate title using the Classic Editor
+3. A post with a unique title using the Block Editor
+4. A new post with a duplicate title using the Block Editor
 
 == Changelog ==
-
-## Changelog ##
 
 = 1.5.1 =
 * Load the correct JavaScript with Classic Editor activate (props to @elvismdev for the issue and PR!)
