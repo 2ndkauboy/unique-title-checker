@@ -11,15 +11,17 @@ A simple plugin that checks the title of any post, page or custom post type to e
 ## Description ##
 This plugin checks the title of a new post/page or any other post type for uniqueness. The plugin provides a filter `unique_title_checker_arguments`, which enables you to modify the `WP_Query` arguments used to find duplicate titles. You may use it so search in more than only current post type for a duplicate title.
 
+This plugin checks the title of a new post/page or any other post type for uniqueness. The plugin provides a filter `unique_title_checker_arguments`, which enables you to modify the `WP_Query` arguments used to find duplicate titles. You may use it to search in more than only current post type for a duplicate title.
+
 This is plugin is an enhancement of the [Duplicate Title Checker](https://wordpress.org/plugins/duplicate-title-checker/) by [ketanajani](https://profiles.wordpress.org/ketanajani/) which only supports posts but not pages or custom post types.
 
 ## Frequently Asked Questions ##
 
 ### Why should I use this plugin? ###
-Some SEO experts say, that you should not have two pages with the same title. If you website wants to avoid duplicate titles, this plugin can help you on that task, as it checks the unqiueness, before you save or publish a post.
+Some SEO experts say that you should not have two pages with the same title. If you want to avoid duplicate titles on your website this plugin can help you with that task, as it checks the unqiueness of page titles, before you save or publish a page (or post).
 
 ### Will this plugin work with my custom post type? ###
-Yes! It was implemented with custom post types in mind. With the default setting, it will check for duplicate titles only in the same post type.
+Yes! It was implemented with custom post types in mind. With the default setting, it will check for duplicate titles in the same post type only.
 
 ### Which titles will be checked? ###
 With the default settings, all posts with any post status (even custom ones) will be included into the check, with the exception of the statuses "draft", "auto-draft", "inherit" and "trash".
@@ -59,7 +61,7 @@ Yes, you can simply use the filter `unique_title_checker_only_unique_error` with
 * Time invested for this release: 30min
 
 ### 1.5.0 ###
-* Improve the translation for langs having "multiple singulars" (e.g. RU)
+* Improve the translation for languages having "multiple singulars" (e.g. RU)
 * Time invested for this release: 45min
 
 ### 1.4.1 ###
