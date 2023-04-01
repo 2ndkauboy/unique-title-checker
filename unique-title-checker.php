@@ -10,7 +10,7 @@
  * Plugin Name: Unique Title Checker
  * Plugin URI: https://github.com/2ndkauboy/unique-title-checker
  * Description: Checks if the title of a post, page or custom post type is unique and warn the editor if not
- * Version: 1.6.0
+ * Version: 1.7.0
  * Author: Bernhard Kau
  * Author URI: http://kau-boys.de
  * Text Domain: unique-title-checker
@@ -157,7 +157,8 @@ class Unique_Title_Checker {
 		}
 
 		// Enqueue the script.
-		if ( function_exists( 'block_version' ) && 'classic' !== get_option( 'classic-editor-replace' ) && ! isset( $_REQUEST['classic-editor'] ) ) {
+		$current_screen = get_current_screen();
+		if ( method_exists( $current_screen, 'is_block_editor' ) && $current_screen->is_block_editor() ) {
 			wp_enqueue_script(
 				'unique_title_checker',
 				plugins_url( 'js/unique-title-checker-block-editor.js', __FILE__ ),
