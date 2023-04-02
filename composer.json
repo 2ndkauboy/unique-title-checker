@@ -1,0 +1,22 @@
+{
+    "name": "2ndkauboy/unique-title-checker",
+    "description": "Checks if the title of a post, page or custom post type is unique and warn the editor if not.",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Bernhard Kau"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "php": ">=5.6",
+        "wp-coding-standards/wpcs": "^2.3",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
