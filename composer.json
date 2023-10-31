@@ -10,9 +10,8 @@
     "minimum-stability": "stable",
     "require-dev": {
         "php": ">=5.6",
-        "wp-coding-standards/wpcs": "^2.3",
-        "phpcompatibility/phpcompatibility-wp": "^2.1",
-        "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+        "wp-coding-standards/wpcs": "^3.0",
+        "phpcompatibility/phpcompatibility-wp": "^2.1"
     },
     "config": {
         "allow-plugins": {
