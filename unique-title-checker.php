@@ -78,7 +78,6 @@ class Unique_Title_Checker {
 	 * @return  object of this class
 	 */
 	public static function get_instance() {
-
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
@@ -93,10 +92,8 @@ class Unique_Title_Checker {
 	 * @return   void
 	 */
 	public function plugin_setup() {
-
 		$this->plugin_url  = plugins_url( '/', __FILE__ );
 		$this->plugin_path = plugin_dir_path( __FILE__ );
-		$this->load_language( 'unique-title-checker' );
 
 		// Enqueue the main JavaScript file.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -118,27 +115,6 @@ class Unique_Title_Checker {
 	 * @see    plugin_setup()
 	 */
 	public function __construct() {
-	}
-
-
-	/**
-	 * Loads translation file.
-	 *
-	 * Accessible to other classes to load different language files (admin and front-end for example).
-	 *
-	 * @wp-hook init
-	 *
-	 * @param   string $domain The text domain for this plugin.
-	 *
-	 * @return  void
-	 */
-	public function load_language( $domain ) {
-
-		load_plugin_textdomain(
-			$domain,
-			false,
-			dirname( plugin_basename( __FILE__ ) ) . '/languages'
-		);
 	}
 
 	/**
@@ -258,7 +234,6 @@ class Unique_Title_Checker {
 	 * @return array The status and message for the response
 	 */
 	public function check_uniqueness( $args ) {
-
 		// Use the posts_where hook to add thr filter for the post_title, as it is not available through WP_Query args.
 		add_filter( 'posts_where', array( $this, 'post_title_where' ), 10, 1 );
 

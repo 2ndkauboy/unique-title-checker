@@ -43,7 +43,7 @@ var closeListener = wp.data.subscribe( function () {
 					if ( 'error' === data.status || !unique_title_checker.only_unique_error ) {
 						( function ( wp ) {
 							// Overwrite status from 'updated' to 'success' in block editor.
-							status = 'error' === data.status ? 'error' : 'success';
+							var status = 'error' === data.status ? 'error' : 'success';
 							wp.data.dispatch( 'core/notices' ).createNotice(
 								status, // Can be one of: success, info, warning, error.
 								data.message, // Text string to display.
