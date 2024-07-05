@@ -5,15 +5,27 @@
  */
 
 var closeListener = wp.data.subscribe( function () {
-	const isReady = document.querySelector( '.wp-block-post-title' );
-	if ( !isReady ) {
+	let iframedEditor =  document.querySelector('.editor-canvas__iframe');
+	let postTitleInput = document.querySelector( '.wp-block-post-title' );
+	if ( !iframedEditor && !postTitleInput ) {
 		// Editor not ready.
 		return;
 	}
+
+	if (iframedEditor) {
+		// Overwrite the post title input selector if inside the iframe.
+		postTitleInput = iframedEditor.contentWindow.document.querySelector('.wp-block-post-title');
+	}
+
+	if ( !postTitleInput ) {
+		// Post title input is not ready.
+		return;
+	}
+
 	// Close the listener as soon as we know we are ready to avoid an infinite loop.
 	closeListener();
 
-	jQuery( '.wp-block-post-title' ).blur(
+	jQuery( postTitleInput ).blur(
 		function () {
 			var title = this.innerText;
 
