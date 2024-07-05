@@ -2,8 +2,7 @@
 **Contributors:** Kau-Boy  
 **Tags:** title, seo, duplicate title, unique title  
 **Tested up to:** 6.6  
-**Stable tag:** 1.7.1  
->>>>>>> develop
+**Stable tag:** 1.8.0  
 **License:** GPLv3  
 **License URI:** http://www.gnu.org/licenses/gpl-3.0  
 
@@ -56,6 +55,10 @@ Yes, you can simply use the filter `unique_title_checker_only_unique_error` with
 ![A new post with a duplicate title using the Block Editor](https://raw.githubusercontent.com/2ndkauboy/unique-title-checker/master/.wordpress-org/screenshot-4.png)
 
 ## Changelog ##
+
+### 1.8.0 ###
+* Fix post title input selection for iframed Block Editor
+* Time invested for this release: 60min
 
 ### 1.7.1 ###
 * Add blueprint.json file for live demo
