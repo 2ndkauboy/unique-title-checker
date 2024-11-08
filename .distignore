@@ -1,0 +1,10 @@
+*.lock
+composer.json
+composer.lock
+.distignore
+.git
+.gitattributes
+.github
+.gitignore
+phpcs.xml
+.wordpress-org

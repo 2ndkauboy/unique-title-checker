@@ -10,7 +10,7 @@
  * Plugin Name: Unique Title Checker
  * Plugin URI: https://github.com/2ndkauboy/unique-title-checker
  * Description: Checks if the title of a post, page or custom post type is unique and warn the editor if not
- * Version: 1.8.0
+ * Version: 1.9.0
  * Author: Bernhard Kau
  * Author URI: http://kau-boys.de
  * Text Domain: unique-title-checker
@@ -194,7 +194,11 @@ class Unique_Title_Checker {
 	/**
 	 * Show an initial warning, if the title of a saved post is not unique
 	 *
+	 * @phpcs:disable WordPressVIPMinimum.Hooks.AlwaysReturnInFilter
+	 *
 	 * @wp-hook admin_notices
+	 *
+	 * @return void
 	 */
 	public function uniqueness_admin_notice() {
 		global $post, $pagenow;
@@ -211,7 +215,7 @@ class Unique_Title_Checker {
 
 		// Build the necessary args for the initial uniqueness check.
 		$args = array(
-			'post__not_in' => array( $post->ID ),
+			'post__not_in' => array( $post->ID ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 			'post_type'    => $post->post_type,
 			'post_title'   => $post->post_title,
 		);

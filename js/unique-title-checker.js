@@ -36,7 +36,17 @@ jQuery( document ).ready(
 							jQuery( '#unique-title-message' ).remove();
 
 							if ( 'error' === data.status || ! unique_title_checker.only_unique_error ) {
-								jQuery( '#post' ).before( '<div id="unique-title-message" class="' + data.status + '"><p>' + data.message + '</p></div>' );
+								jQuery( '#post' ).before(
+									jQuery(
+										'<div>',
+										{
+											id: 'unique-title-message',
+											class: data.status
+										}
+									).append(
+										jQuery( '<p>' ).text( data.message )
+									)
+								);
 							}
 						}
 					);
