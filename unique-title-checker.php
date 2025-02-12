@@ -178,7 +178,7 @@ class Unique_Title_Checker {
 			array(
 				'action',
 				'ajax_nonce',
-				'post__not_in',
+				'post_id',
 				'post_type',
 				'post_title',
 			)
@@ -240,6 +240,12 @@ class Unique_Title_Checker {
 	public function check_uniqueness( $args ) {
 		// Use the posts_where hook to add thr filter for the post_title, as it is not available through WP_Query args.
 		add_filter( 'posts_where', array( $this, 'post_title_where' ), 10, 1 );
+
+		// Use the `post_id` parameter for an excluding post filter.
+		if ( isset( $args['post_id'] ) ) {
+			$args['post__not_in'][] = $args['post_id'];
+			unset( $args['post_id'] );
+		}
 
 		// Providing a filter to overwrite the search arguments.
 		$args = apply_filters( 'unique_title_checker_arguments', $args );

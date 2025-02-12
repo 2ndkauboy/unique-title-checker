@@ -4,55 +4,40 @@
  * @package unique-title-checker
  */
 
-jQuery( document ).ready(
-	function () {
+document.addEventListener( "DOMContentLoaded", function () {
+	document.getElementById( "title" ).addEventListener( "blur", function () {
+		var title = this.value;
 
-			jQuery( '#title' ).blur(
-				function () {
+		// Show no warning on empty titles.
+		if (title === "") {
+			return;
+		}
 
-					var title = jQuery( this ).val();
+		var requestData = new URLSearchParams( {
+			action: "unique_title_check",
+			ajax_nonce: unique_title_checker.nonce,
+			post_id: document.getElementById( "post_ID" ).value,
+			post_type: document.getElementById( "post_type" ).value,
+			post_title: title
+		} );
 
-					// Show no warning on empty titles.
-					if ( '' === title ) {
-						return;
-					}
-
-					var request_data = {
-						action      : 'unique_title_check',
-						ajax_nonce  : unique_title_checker.nonce,
-						post__not_in: [ jQuery( '#post_ID' ).val() ],
-						post_type   : jQuery( '#post_type' ).val(),
-						post_title  : title
-					};
-
-					jQuery.ajax(
-						{
-							url     : ajaxurl,
-							data    : request_data,
-							dataType: 'json'
-						}
-					).done(
-						function ( data ) {
-							jQuery( '#unique-title-message' ).remove();
-
-							if ( 'error' === data.status || ! unique_title_checker.only_unique_error ) {
-								jQuery( '#post' ).before(
-									jQuery(
-										'<div>',
-										{
-											id: 'unique-title-message',
-											class: data.status
-										}
-									).append(
-										jQuery( '<p>' ).text( data.message )
-									)
-								);
-							}
-						}
-					);
-
+		fetch( ajaxurl + "?" + requestData.toString() )
+			.then( response => response.json() )
+			.then( data => {
+				var messageElement = document.getElementById( "unique-title-message" );
+				if (messageElement) {
+					messageElement.remove();
 				}
-			);
 
-	}
-);
+				if (data.status === "error" || !unique_title_checker.only_unique_error) {
+					document.getElementById( "post" ).insertAdjacentHTML(
+						"beforebegin",
+						`<div id="unique-title-message" class="${ data.status }">
+							<p>${ data.message }</p>
+						</div>`
+					);
+				}
+			} )
+			.catch( error => console.error( "Error fetching unique title check:", error ) );
+	} );
+} );
