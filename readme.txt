@@ -1,7 +1,7 @@
 === Unique Title Checker ===
 Contributors: Kau-Boy
 Tags: title, seo, duplicate title, unique title
-Tested up to: 6.7
+Tested up to: 6.8
 Stable tag: 1.9.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
@@ -17,18 +17,18 @@ This plugin is an enhancement of the [Duplicate Title Checker](https://wordpress
 == Frequently Asked Questions ==
 
 = Why should I use this plugin? =
-Some SEO experts say that you should not have two pages with the same title. If you want to avoid duplicate titles on your website this plugin can help you with that task, as it checks the unqiueness of page titles, before you save or publish a page (or post).
+Some SEO experts say that you should not have two pages with the same title. If you want to avoid duplicate titles on your website, this plugin can help you with that task, as it checks the uniqueness of page titles, before you save or publish a page (or post).
 
 = Will this plugin work with my custom post type? =
 Yes! It was implemented with custom post types in mind. With the default setting, it will check for duplicate titles in the same post type only.
 
 = Which titles will be checked? =
-With the default settings, all posts with any post status (even custom ones) will be included into the check, with the exception of the statuses "draft", "auto-draft", "inherit" and "trash".
+With the default settings, all posts with any post status (even custom ones) will be included into the check, except for the statuses "draft", "auto-draft", "inherit" and "trash".
 
 = Will the plugin block a post from being saved, if the title is not unique? =
-No! You can always save the post. There might be good reasons for you, to have duplicate titles on your site. The plugin itself does not influence the saving in any kind. It's whole functionality is only based on some AJAX.
+No! You can always save the post. There might be good reasons for you, to have duplicate titles on your site. The plugin itself does not influence the saving in any kind. Its whole functionality is only based on some AJAX.
 
-= When will the title be checked for it's uniqueness? =
+= When will the title be checked for its uniqueness? =
 Every time you leave the title input field, the plugin will check the uniqueness of the new title, so you know if it will be unique, before you save the post.
 
 = Can I customize the defaults for the check? =
