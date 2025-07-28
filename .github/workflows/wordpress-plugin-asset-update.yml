@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - stable
+
+concurrency: WordPress.org
+
 jobs:
   stable:
     name: Push to trunk

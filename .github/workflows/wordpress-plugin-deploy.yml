@@ -3,6 +3,8 @@ on:
   release:
     types: [published]
 
+concurrency: WordPress.org
+
 jobs:
   tag:
     name: New release
