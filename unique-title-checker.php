@@ -24,7 +24,7 @@ add_action(
 );
 
 /**
- * Class Unique_Title_Checker
+ * Class Unique_Title_Checker.
  */
 class Unique_Title_Checker {
 
@@ -51,31 +51,32 @@ class Unique_Title_Checker {
 	public $plugin_path = '';
 
 	/**
-	 * The nonce action
+	 * The nonce action.
 	 *
 	 * @var  string
 	 */
 	public $nonce_action = 'unique_title_check_nonce';
 
 	/**
-	 * The AJAX nonce
+	 * The AJAX nonce.
 	 *
 	 * @var  string
 	 */
 	public $ajax_nonce = '';
 
 	/**
-	 * The post title to be checked
+	 * The `post_title` to be checked
 	 *
 	 * @var  string
 	 */
 	public $post_title = '';
 
 	/**
-	 * Access this plugin’s working instance
+	 * Access this plugin’s working instance.
 	 *
 	 * @wp-hook plugins_loaded
-	 * @return  object of this class
+	 *
+	 * @return object The current instance of this class.
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {
@@ -88,8 +89,9 @@ class Unique_Title_Checker {
 	/**
 	 * Used for regular plugin work.
 	 *
-	 * @wp-hook  plugins_loaded
-	 * @return   void
+	 * @wp-hook plugins_loaded
+	 *
+	 * @return void
 	 */
 	public function plugin_setup() {
 		$this->plugin_url  = plugins_url( '/', __FILE__ );
@@ -101,8 +103,8 @@ class Unique_Title_Checker {
 		// Add the AJAX callback function.
 		add_action( 'wp_ajax_unique_title_check', array( $this, 'unique_title_check' ) );
 
-		// Check uniqueness, when post is edited.
-		add_filter( 'admin_notices', array( $this, 'uniqueness_admin_notice' ) );
+		// Check the uniqueness when a post is edited.
+		add_action( 'admin_notices', array( $this, 'uniqueness_admin_notice' ) );
 
 		// Generate the AJAX nonce.
 		$this->ajax_nonce = wp_create_nonce( $this->nonce_action );
@@ -112,19 +114,19 @@ class Unique_Title_Checker {
 	 * Constructor.
 	 * Intentionally left empty and public.
 	 *
-	 * @see    plugin_setup()
+	 * @see plugin_setup()
 	 */
 	public function __construct() {
 	}
 
 	/**
-	 * Add the JavaScript files to the admin pages
+	 * Add the JavaScript files to the admin pages.
 	 *
 	 * @wp-hook admin_enqueue_scripts
 	 *
 	 * @param string $hook The current admin page script.
 	 *
-	 * @return  void
+	 * @return void
 	 */
 	public function enqueue_scripts( $hook ) {
 		// Only enable it on new posts/pages/CPTs.
@@ -163,11 +165,11 @@ class Unique_Title_Checker {
 	}
 
 	/**
-	 * Check the uniqueness and return the result
+	 * Check the uniqueness and return the result.
 	 *
 	 * @wp-hook wp_ajax_(action)
 	 *
-	 * @return  void
+	 * @return void
 	 */
 	public function unique_title_check() {
 		// Verify the ajax request.
@@ -192,9 +194,7 @@ class Unique_Title_Checker {
 	}
 
 	/**
-	 * Show an initial warning, if the title of a saved post is not unique
-	 *
-	 * @phpcs:disable WordPressVIPMinimum.Hooks.AlwaysReturnInFilter
+	 * Show an initial warning if the title of a saved post is not unique.
 	 *
 	 * @wp-hook admin_notices
 	 *
@@ -213,12 +213,14 @@ class Unique_Title_Checker {
 			return;
 		}
 
+		// phpcs:disable WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 		// Build the necessary args for the initial uniqueness check.
 		$args = array(
-			'post__not_in' => array( $post->ID ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
+			'post__not_in' => array( $post->ID ),
 			'post_type'    => $post->post_type,
 			'post_title'   => $post->post_title,
 		);
+		// phpcs:enable WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 
 		$response = $this->check_uniqueness( $args );
 
@@ -227,7 +229,11 @@ class Unique_Title_Checker {
 			return;
 		}
 
-		echo '<div id="unique-title-message" class="' . esc_attr( $response['status'] ) . '"><p>' . esc_html( $response['message'] ) . '</p></div>';
+		printf(
+			'<div id="unique-title-message" class="%s"><p>%s</p></div>',
+			esc_attr( $response['status'] ),
+			esc_html( $response['message'] )
+		);
 	}
 
 	/**
@@ -238,9 +244,10 @@ class Unique_Title_Checker {
 	 * @return array The status and message for the response
 	 */
 	public function check_uniqueness( $args ) {
-		// Use the posts_where hook to add thr filter for the post_title, as it is not available through WP_Query args.
+		// Use the posts_where hook to add the filter for the post_title, as it is not available through WP_Query args.
 		add_filter( 'posts_where', array( $this, 'post_title_where' ), 10, 1 );
 
+		// phpcs:disable WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 		// Use the `post_id` parameter for an excluding post filter.
 		if ( isset( $args['post_id'] ) ) {
 			$args['post__not_in'][] = $args['post_id'];
@@ -251,6 +258,7 @@ class Unique_Title_Checker {
 		if ( ! is_array( $args['post__not_in'] ) ) {
 			$args['post__not_in'] = array( $args['post__not_in'] );
 		}
+		// phpcs:enable WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 
 		// Providing a filter to overwrite the search arguments.
 		$args = apply_filters( 'unique_title_checker_arguments', $args );
@@ -264,7 +272,7 @@ class Unique_Title_Checker {
 			$post_type_name          = esc_html__( 'posts', 'unique-title-checker' );
 		}
 
-		// Set post title to be checked.
+		// Set the `post_title` to be checked.
 		$this->post_title = $args['post_title'];
 
 		$query       = new WP_Query( $args );
@@ -277,11 +285,30 @@ class Unique_Title_Checker {
 			);
 		} else {
 			if ( 1 === $posts_count ) {
-				// Translators: %2$s: post type singular name.
-				$message = esc_html( sprintf( __( 'There is one %1$s with the same title!', 'unique-title-checker' ), $post_type_singular_name ) );
+				$message = esc_html(
+					sprintf(
+					// Translators: %1$s: `post_type` singular name.
+						__( 'There is one %1$s with the same title!', 'unique-title-checker' ),
+						$post_type_singular_name
+					)
+				);
 			} else {
-				// Translators: %1$d: posts count, %2$s: post type singular name, %3$s: post type plural name.
-				$message = esc_html( sprintf( _n( 'There is %1$d %2$s with the same title!', 'There are %1$d other %3$s with the same title!', $posts_count, 'unique-title-checker' ), $posts_count, $post_type_singular_name, $post_type_name ) ); // phpcs:ignore WordPress.WP.I18n.MismatchedPlaceholders
+				// phpcs:disable WordPress.WP.I18n.MismatchedPlaceholders
+				$message = esc_html(
+					sprintf(
+					// Translators: %1$d: posts count, %2$s: `post_type` singular name, %3$s: `post_type` plural name.
+						_n(
+							'There is %1$d %2$s with the same title!',
+							'There are %1$d other %3$s with the same title!',
+							$posts_count,
+							'unique-title-checker'
+						),
+						$posts_count,
+						$post_type_singular_name,
+						$post_type_name
+					)
+				);
+				// phpcs:enable WordPress.WP.I18n.MismatchedPlaceholders
 			}
 			$response = array(
 				'message' => $message,
@@ -300,11 +327,11 @@ class Unique_Title_Checker {
 	 *
 	 * @wp-hook wp_ajax_(action)
 	 *
-	 * @global wpdb  $wpdb  The data base object
+	 * @global wpdb  $wpdb  The database object
 	 *
 	 * @param string $where The WHERE clause.
 	 *
-	 * @return string The new WHERE clause
+	 * @return string The new WHERE clause.
 	 */
 	public function post_title_where( $where ) {
 		global $wpdb;
