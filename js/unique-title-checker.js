@@ -27,8 +27,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		// Perform the AJAX request
 		fetch( ajaxurl + '?' + requestData.toString() )
-			.then( (response) => response.json() )
-			.then( (data) => {
+			.then( ( response ) => response.json() )
+			.then( ( data ) => {
 				const messageElement = document.getElementById( 'unique-title-message' );
 				if (messageElement) {
 					messageElement.remove();
@@ -43,8 +43,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 					);
 				}
 			} )
-			.catch( (error) => {
+			.catch( ( error ) => {
 				console.error( 'Error fetching unique title check:', error );
-			});
+			} );
 	} );
 } );
