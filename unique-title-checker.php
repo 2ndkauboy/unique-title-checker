@@ -247,6 +247,11 @@ class Unique_Title_Checker {
 			unset( $args['post_id'] );
 		}
 
+		// Make sure `post__not_in` is an array.
+		if ( ! is_array( $args['post__not_in'] ) ) {
+			$args['post__not_in'] = array( $args['post__not_in'] );
+		}
+
 		// Providing a filter to overwrite the search arguments.
 		$args = apply_filters( 'unique_title_checker_arguments', $args );
 
