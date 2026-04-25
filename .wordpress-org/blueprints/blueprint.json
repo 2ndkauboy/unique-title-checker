@@ -8,10 +8,35 @@
   ],
   "steps": [
     {
+      "step": "wp-cli",
+      "command": "wp post create --post_title='Duplicate Title'"
+    },
+    {
+      "step": "wp-cli",
+      "command": "wp post create --post_title='Duplicate Title'"
+    },
+    {
+      "step": "wp-cli",
+      "command": "wp post create --post_title='Unique Title'"
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "classic-editor"
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "classic-editor-replace": "block"
+      }
+    },
+    {
       "step": "login",
       "username": "admin",
       "password": "password"
     }
   ],
-  "landingPage": "\/wp-admin\/edit.php?post_type=page"
+  "landingPage": "\/wp-admin\/edit.php"
 }
