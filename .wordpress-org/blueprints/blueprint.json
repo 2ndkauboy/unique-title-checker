@@ -1,11 +1,6 @@
 {
-  "preferredVersions": {
-    "php": "8.4",
-    "wp": "latest"
-  },
-  "phpExtensionBundles": [
-    "kitchen-sink"
-  ],
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "\/wp-admin\/edit.php",
   "steps": [
     {
       "step": "wp-cli",
@@ -37,6 +32,5 @@
       "username": "admin",
       "password": "password"
     }
-  ],
-  "landingPage": "\/wp-admin\/edit.php"
+  ]
 }
