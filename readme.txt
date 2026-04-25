@@ -35,7 +35,7 @@ Every time you leave the title input field, the plugin will check the uniqueness
 Absolutely! The plugin provides a filter called `unique_title_checker_arguments`. With this filter, you can alter the arguments used for the `WP_Query`, the plugin uses to get posts with duplicate titles.
 
 = Will the plugin check the uniqueness across different post types? =
-No, it only checks the uniqueness per post type. But you can customize the `WP_Query` with the filter mentioned in the previous question. For a check across all post types, you can also [use this plugin implementing the filter for such a check](https://gist.github.com/2ndkauboy/140116e47f2d6c8ae25b002592ac45eb).
+No, it only checks the uniqueness per post type. But you can customize the `WP_Query` with the filter mentioned in the previous question. For a check across all post types, you can also [use this plugin implementing the filter for such a check](https://gist.github.com/2ndkauboy/fe42bb2815499a8ad38a3b5403ecd57a).
 
 = Can I only show messages if a title is not unique? =
 Yes, you can use the filter `unique_title_checker_only_unique_error` with `__return_true` to deactivate it ([or use this plugin which implements the filter](https://gist.github.com/140116e47f2d6c8ae25b002592ac45eb)).
