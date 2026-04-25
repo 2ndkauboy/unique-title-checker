@@ -1,7 +1,7 @@
 === Unique Title Checker ===
 Contributors: Kau-Boy
 Tags: title, seo, duplicate title, unique title
-Tested up to: 6.9
+Tested up to: 7.0
 Stable tag: 2.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
@@ -14,11 +14,9 @@ This plugin checks the title of a new post/page or any other post type for uniqu
 
 This plugin is an enhancement of the [Duplicate Title Checker](https://wordpress.org/plugins/duplicate-title-checker/) by [ketanajani](https://profiles.wordpress.org/ketanajani/) which only supports posts but not pages or custom post types.
 
-You can contribute to the development of this plugin on
-[GitHub](https://github.com/2ndkauboy/unique-title-checker).
+You can contribute to the development of this plugin on [GitHub](https://github.com/2ndkauboy/unique-title-checker).
 
-Help translate this plugin into your language on
-[translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/unique-title-checker/).
+Help translate this plugin into your language on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/unique-title-checker/).
 
 == Frequently Asked Questions ==
 
@@ -60,7 +58,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 2.1.0 =
 * Add new CSS selector for iframed Block Editor
-* Time invested for this release: 30min
+* Time invested for this release: 45min
 
 = 2.0.0 =
 * Remove the jQuery dependency
