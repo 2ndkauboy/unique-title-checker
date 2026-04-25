@@ -5,7 +5,7 @@
  */
 
 const closeListener = wp.data.subscribe( function () {
-	let iframedEditor = document.querySelector( '.editor-canvas__iframe' );
+	let iframedEditor = document.querySelector( 'iframe[name="editor-canvas"],.editor-canvas__iframe' );
 	let postTitleInput = document.querySelector( '.wp-block-post-title' );
 	if (!iframedEditor && !postTitleInput) {
 		// The editor is not ready.
