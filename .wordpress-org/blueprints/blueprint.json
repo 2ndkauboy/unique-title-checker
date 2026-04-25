@@ -24,6 +24,7 @@
     {
       "step": "setSiteOptions",
       "options": {
+        "classic-editor-allow-users": "allow",
         "classic-editor-replace": "block"
       }
     },
