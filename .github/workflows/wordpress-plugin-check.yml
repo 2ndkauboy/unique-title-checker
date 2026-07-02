@@ -5,7 +5,7 @@ on:
     branches:
       - develop
   release:
-    types: [ published ]
+    types: [published]
 
 jobs:
   check:
