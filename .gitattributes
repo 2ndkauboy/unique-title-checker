@@ -9,5 +9,8 @@
 /.wordpress-org export-ignore
 /composer.lock export-ignore
 /phpcs.xml.dist export-ignore
+/.phpunit.result.cache export-ignore
+/phpunit.xml.dist export-ignore
 /README.md export-ignore
 /test export-ignore
+/tests export-ignore

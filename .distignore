@@ -1,4 +1,5 @@
 *.lock
+artifacts
 composer.json
 composer.lock
 .distignore
@@ -6,5 +7,9 @@ composer.lock
 .gitattributes
 .github
 .gitignore
+node_modules
 phpcs.xml
+.phpunit.result.cache
+phpunit.xml.dist
+tests
 .wordpress-org
