@@ -8,6 +8,7 @@
 /.github export-ignore
 /.wordpress-org export-ignore
 /.wp-env.json export-ignore
+/.wp-env.override.json export-ignore
 /composer.lock export-ignore
 /package.json export-ignore
 /package-lock.json export-ignore
@@ -15,6 +16,7 @@
 /.phpunit.result.cache export-ignore
 /phpunit.xml.dist export-ignore
 /phpunit-integration.xml.dist export-ignore
+/playwright.config.js export-ignore
 /README.md export-ignore
 /test export-ignore
 /tests export-ignore
