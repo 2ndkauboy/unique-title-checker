@@ -1,0 +1,24 @@
+{
+	"name": "unique-title-checker",
+	"version": "2.1.0",
+	"description": "Checks if the title of a post, page or custom post type is unique and warn the editor if not",
+	"author": "Bernhard Kau",
+	"license": "GPL-3.0-or-later",
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/2ndkauboy/unique-title-checker.git"
+	},
+	"scripts": {
+		"wp-env": "wp-env",
+		"env:start": "wp-env start",
+		"env:stop": "wp-env stop",
+		"env:destroy": "wp-env destroy",
+		"composer": "wp-env run tests-cli --env-cwd=wp-content/plugins/unique-title-checker -- composer",
+		"test:integration": "wp-env run tests-cli --env-cwd=wp-content/plugins/unique-title-checker -- composer test:integration",
+		"test:integration:multisite": "wp-env run tests-cli --env-cwd=wp-content/plugins/unique-title-checker -- env WP_MULTISITE=1 composer test:integration"
+	},
+	"devDependencies": {
+		"@wordpress/env": "^11.13.0"
+	}
+}
