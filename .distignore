@@ -14,6 +14,8 @@ phpcs.xml
 .phpunit.result.cache
 phpunit.xml.dist
 phpunit-integration.xml.dist
+playwright.config.js
 tests
 .wordpress-org
 .wp-env.json
+.wp-env.override.json
