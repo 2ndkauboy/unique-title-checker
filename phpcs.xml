@@ -38,6 +38,8 @@
 	<exclude-pattern>/build/</exclude-pattern>
 	<exclude-pattern>/vendor/</exclude-pattern>
 	<exclude-pattern>/node_modules/</exclude-pattern>
+	<!-- The test suite follows the PHPUnit conventions and only runs on modern PHP versions. -->
+	<exclude-pattern>/tests/</exclude-pattern>
 
 	<!--
 	#############################################################################

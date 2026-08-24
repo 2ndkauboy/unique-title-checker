@@ -1,2 +1,4 @@
-*.lock
 /vendor/
+/node_modules/
+/artifacts/
+/.phpunit.result.cache
