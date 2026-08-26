@@ -153,7 +153,7 @@ class Unique_Title_Checker {
 
 		// Enqueue the script with the dependencies and the version of the build.
 		wp_enqueue_script(
-			'unique_title_checker',
+			'unique-title-checker',
 			plugins_url( 'build/' . $script . '.js', __FILE__ ),
 			$asset['dependencies'],
 			$asset['version'],
@@ -166,7 +166,7 @@ class Unique_Title_Checker {
 		);
 
 		// Add the nonce to the form.
-		wp_localize_script( 'unique_title_checker', 'unique_title_checker', $plugin_options );
+		wp_localize_script( 'unique-title-checker', 'unique_title_checker', $plugin_options );
 	}
 
 	/**
