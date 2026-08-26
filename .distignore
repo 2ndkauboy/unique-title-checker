@@ -3,6 +3,7 @@ artifacts
 composer.json
 composer.lock
 .distignore
+.eslintrc
 .git
 .gitattributes
 .github
@@ -16,6 +17,9 @@ phpunit.xml.dist
 phpunit-integration.xml.dist
 playwright.config.js
 tests
+src
+tsconfig.json
+webpack.config.js
 .wordpress-org
 .wp-env.json
 .wp-env.override.json
