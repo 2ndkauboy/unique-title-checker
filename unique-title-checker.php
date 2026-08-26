@@ -134,25 +134,31 @@ class Unique_Title_Checker {
 			return;
 		}
 
-		// Enqueue the script.
+		// Choose the script for the editor of the current screen.
 		$current_screen = get_current_screen();
 		if ( method_exists( $current_screen, 'is_block_editor' ) && $current_screen->is_block_editor() ) {
-			wp_enqueue_script(
-				'unique_title_checker',
-				plugins_url( 'js/unique-title-checker-block-editor.js', __FILE__ ),
-				array( 'jquery', 'wp-data', 'wp-notices' ),
-				filemtime( plugin_dir_path( __FILE__ ) . 'js/unique-title-checker-block-editor.js' ),
-				true
-			);
+			$script = 'unique-title-checker-block-editor';
 		} else {
-			wp_enqueue_script(
-				'unique_title_checker',
-				plugins_url( 'js/unique-title-checker.js', __FILE__ ),
-				array( 'jquery' ),
-				filemtime( plugin_dir_path( __FILE__ ) . 'js/unique-title-checker.js' ),
-				true
-			);
+			$script = 'unique-title-checker';
 		}
+
+		$asset_file = plugin_dir_path( __FILE__ ) . 'build/' . $script . '.asset.php';
+
+		// The assets are built from the TypeScript sources and are missing in a plain checkout.
+		if ( ! file_exists( $asset_file ) ) {
+			return;
+		}
+
+		$asset = include $asset_file;
+
+		// Enqueue the script with the dependencies and the version of the build.
+		wp_enqueue_script(
+			'unique_title_checker',
+			plugins_url( 'build/' . $script . '.js', __FILE__ ),
+			$asset['dependencies'],
+			$asset['version'],
+			true
+		);
 
 		$plugin_options = array(
 			'nonce'             => $this->ajax_nonce,
@@ -161,7 +167,6 @@ class Unique_Title_Checker {
 
 		// Add the nonce to the form.
 		wp_localize_script( 'unique_title_checker', 'unique_title_checker', $plugin_options );
-		wp_enqueue_script( 'unique_title_checker' );
 	}
 
 	/**

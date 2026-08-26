@@ -1,5 +1,6 @@
 /vendor/
 /node_modules/
+/build/
 /artifacts/
 /.wp-env.override.json
 /.phpunit.result.cache

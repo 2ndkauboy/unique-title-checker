@@ -40,6 +40,7 @@
 	<exclude-pattern>/node_modules/</exclude-pattern>
 	<!-- The test suite follows the PHPUnit conventions and only runs on modern PHP versions. -->
 	<exclude-pattern>/tests/</exclude-pattern>
+	<exclude-pattern>/src/</exclude-pattern>
 
 	<!--
 	#############################################################################

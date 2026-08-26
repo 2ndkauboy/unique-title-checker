@@ -24,6 +24,17 @@ jobs:
       - name: Install no-dev dependencies only
         run: composer install --no-dev -o
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Build the assets
+        run: |
+          npm ci
+          npm run build
+
       - name: Install latest version of dist-archive-command
         run: wp package install wp-cli/dist-archive-command:v3.1.0
 
