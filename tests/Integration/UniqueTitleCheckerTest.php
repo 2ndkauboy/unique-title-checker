@@ -199,6 +199,9 @@ class UniqueTitleCheckerTest extends TestCase {
 	/**
 	 * The classic editor screen gets the classic editor script.
 	 *
+	 * This asserts against the real build output in `build/`, which the CI workflow
+	 * produces with `npm run build` before running the integration tests.
+	 *
 	 * @return void
 	 */
 	public function test_enqueue_scripts_uses_the_classic_editor_script() {
@@ -207,15 +210,12 @@ class UniqueTitleCheckerTest extends TestCase {
 
 		$this->plugin->enqueue_scripts( 'post.php' );
 
-		$this->assertTrue( wp_script_is( 'unique_title_checker', 'enqueued' ) );
+		$this->assertTrue( wp_script_is( 'unique-title-checker', 'enqueued' ) );
 		$this->assertStringContainsString(
-			'js/unique-title-checker.js',
-			wp_scripts()->registered['unique_title_checker']->src
+			'build/unique-title-checker.js',
+			wp_scripts()->registered['unique-title-checker']->src
 		);
-		$this->assertSame(
-			array( 'jquery' ),
-			wp_scripts()->registered['unique_title_checker']->deps
-		);
+		$this->assertSame( array(), wp_scripts()->registered['unique-title-checker']->deps );
 	}
 
 	/**
@@ -230,12 +230,12 @@ class UniqueTitleCheckerTest extends TestCase {
 		$this->plugin->enqueue_scripts( 'post.php' );
 
 		$this->assertStringContainsString(
-			'js/unique-title-checker-block-editor.js',
-			wp_scripts()->registered['unique_title_checker']->src
+			'build/unique-title-checker-block-editor.js',
+			wp_scripts()->registered['unique-title-checker']->src
 		);
 		$this->assertSame(
-			array( 'jquery', 'wp-data', 'wp-notices' ),
-			wp_scripts()->registered['unique_title_checker']->deps
+			array( 'wp-data', 'wp-notices' ),
+			wp_scripts()->registered['unique-title-checker']->deps
 		);
 	}
 
@@ -249,7 +249,7 @@ class UniqueTitleCheckerTest extends TestCase {
 
 		$this->plugin->enqueue_scripts( 'post.php' );
 
-		$data = wp_scripts()->get_data( 'unique_title_checker', 'data' );
+		$data = wp_scripts()->get_data( 'unique-title-checker', 'data' );
 
 		$this->assertStringContainsString( '"nonce"', $data );
 
@@ -267,7 +267,7 @@ class UniqueTitleCheckerTest extends TestCase {
 
 		$this->plugin->enqueue_scripts( 'edit.php' );
 
-		$this->assertFalse( wp_script_is( 'unique_title_checker', 'enqueued' ) );
+		$this->assertFalse( wp_script_is( 'unique-title-checker', 'enqueued' ) );
 	}
 
 	/**

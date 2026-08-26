@@ -111,28 +111,53 @@ final class UniqueTitleCheckerTest extends TestCase {
 	}
 
 	/**
-	 * The block editor screen gets the block editor script.
+	 * The block editor screen gets the block editor script and its dependencies.
 	 *
 	 * @return void
 	 */
 	public function test_enqueue_scripts_uses_the_block_editor_script() {
-		$calls = $this->enqueue_scripts_on_screen( true, 'js/unique-title-checker-block-editor.js' );
-
-		$this->assertSame(
-			array( 'jquery', 'wp-data', 'wp-notices' ),
-			$calls[0][2]
+		$calls = $this->enqueue_scripts_on_screen(
+			true,
+			'unique-title-checker-block-editor',
+			array( 'wp-data', 'wp-notices' ),
+			'unit-test-block-editor'
 		);
+
+		$this->assertSame( array( 'wp-data', 'wp-notices' ), $calls[0][2] );
 	}
 
 	/**
-	 * The classic editor screen gets the classic editor script.
+	 * The classic editor screen gets the classic editor script and its dependencies.
 	 *
 	 * @return void
 	 */
 	public function test_enqueue_scripts_uses_the_classic_editor_script() {
-		$calls = $this->enqueue_scripts_on_screen( false, 'js/unique-title-checker.js' );
+		$calls = $this->enqueue_scripts_on_screen(
+			false,
+			'unique-title-checker',
+			array(),
+			'unit-test-classic'
+		);
 
-		$this->assertSame( array( 'jquery' ), $calls[0][2] );
+		$this->assertSame( array(), $calls[0][2] );
+	}
+
+	/**
+	 * Nothing is enqueued when the build is missing, e.g. in a plain checkout of the sources.
+	 *
+	 * @return void
+	 */
+	public function test_enqueue_scripts_skips_a_missing_build() {
+		$screen = Mockery::mock( 'WP_Screen' );
+		$screen->shouldReceive( 'is_block_editor' )->once()->andReturn( false );
+
+		Functions\expect( 'get_current_screen' )->once()->andReturn( $screen );
+		Functions\expect( 'plugin_dir_path' )->once()->andReturn( '/does/not/exist/' );
+
+		Functions\expect( 'wp_enqueue_script' )->never();
+		Functions\expect( 'wp_localize_script' )->never();
+
+		$this->plugin->enqueue_scripts( 'post.php' );
 	}
 
 	/**
@@ -307,25 +332,30 @@ final class UniqueTitleCheckerTest extends TestCase {
 	/**
 	 * Enqueue the scripts for a post edit screen and return the `wp_enqueue_script()` calls.
 	 *
-	 * @param bool   $is_block_editor Whether the screen uses the block editor.
-	 * @param string $expected_file   The script file that is expected to be enqueued.
+	 * `plugin_dir_path()` is pointed at `tests/Unit/fixtures/`, which contains a `build/`
+	 * directory standing in for the real build output, so `enqueue_scripts()` reads the
+	 * dependencies and the version from a real `*.asset.php` file just like it would in
+	 * production.
+	 *
+	 * @param bool     $is_block_editor  Whether the screen uses the block editor.
+	 * @param string   $script           The name of the script, without the `.js` extension.
+	 * @param string[] $expected_deps    The dependencies declared in the fixture asset file.
+	 * @param string   $expected_version The version declared in the fixture asset file.
 	 *
 	 * @return array[] The arguments of all `wp_enqueue_script()` calls.
 	 */
-	private function enqueue_scripts_on_screen( $is_block_editor, $expected_file ) {
+	private function enqueue_scripts_on_screen( $is_block_editor, $script, $expected_deps, $expected_version ) {
 		$screen = Mockery::mock( 'WP_Screen' );
 		$screen->shouldReceive( 'is_block_editor' )->once()->andReturn( $is_block_editor );
 
 		$this->plugin->ajax_nonce = 'the-nonce';
 
 		Functions\expect( 'get_current_screen' )->once()->andReturn( $screen );
+		Functions\expect( 'plugin_dir_path' )->once()->andReturn( __DIR__ . '/fixtures/' );
 		Functions\expect( 'plugins_url' )
 			->once()
-			->with( $expected_file, Mockery::type( 'string' ) )
-			->andReturn( 'https://example.org/plugin/' . $expected_file );
-
-		// Return the real plugin directory, so `filemtime()` can read the script file.
-		Functions\expect( 'plugin_dir_path' )->once()->andReturn( dirname( __DIR__, 2 ) . '/' );
+			->with( 'build/' . $script . '.js', Mockery::type( 'string' ) )
+			->andReturn( 'https://example.org/plugin/build/' . $script . '.js' );
 
 		Filters\expectApplied( 'unique_title_checker_only_unique_error' )
 			->once()
@@ -342,7 +372,7 @@ final class UniqueTitleCheckerTest extends TestCase {
 		Functions\expect( 'wp_localize_script' )
 			->once()
 			->with(
-				'unique_title_checker',
+				'unique-title-checker',
 				'unique_title_checker',
 				array(
 					'nonce'             => 'the-nonce',
@@ -352,11 +382,12 @@ final class UniqueTitleCheckerTest extends TestCase {
 
 		$this->plugin->enqueue_scripts( 'post.php' );
 
-		$this->assertCount( 2, $calls );
-		$this->assertSame( 'unique_title_checker', $calls[0][0] );
-		$this->assertSame( 'https://example.org/plugin/' . $expected_file, $calls[0][1] );
+		$this->assertCount( 1, $calls );
+		$this->assertSame( 'unique-title-checker', $calls[0][0] );
+		$this->assertSame( 'https://example.org/plugin/build/' . $script . '.js', $calls[0][1] );
+		$this->assertSame( $expected_deps, $calls[0][2] );
+		$this->assertSame( $expected_version, $calls[0][3] );
 		$this->assertTrue( $calls[0][4] );
-		$this->assertSame( array( 'unique_title_checker' ), $calls[1] );
 
 		return $calls;
 	}

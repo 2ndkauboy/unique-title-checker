@@ -5,10 +5,13 @@ on:
     paths:
       - '**.php'
       - '!tests/e2e/**'
+      - 'src/**'
       - 'composer.json'
       - 'package.json'
       - 'package-lock.json'
       - 'phpunit-integration.xml.dist'
+      - 'tsconfig.json'
+      - 'webpack.config.js'
       - '.wp-env.json'
       - '.github/workflows/integration.yml'
   push:
@@ -32,6 +35,9 @@ jobs:
 
       - name: Install Node dependencies
         run: npm ci
+
+      - name: Build the assets
+        run: npm run build
 
       - name: Start the WordPress environment
         run: npm run env:start
